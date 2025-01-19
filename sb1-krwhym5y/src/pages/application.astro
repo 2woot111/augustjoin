@@ -1,0 +1,40 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ApplicationForm from '../components/ApplicationForm.astro';
+import ExternalLink from '../components/ExternalLink.astro';
+---
+
+<Layout title="Apply - August">
+  <main class="application-page">
+    <div class="brand-link">
+      <ExternalLink href="https://augustlearn.com/" class="brand-text">August</ExternalLink>
+    </div>
+    
+    <ApplicationForm />
+  </main>
+</Layout>
+
+<style>
+  .application-page {
+    min-height: 100vh;
+    padding: 2rem;
+    position: relative;
+  }
+
+  .brand-link {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .brand-text {
+    color: #000000;
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+  }
+</style>

@@ -1,0 +1,412 @@
+---
+---
+
+<div class="application-form">
+  <div class="slides" id="slides">
+    <!-- Slide 1: Undergraduate Status -->
+    <div class="slide" data-slide="1">
+      <h2>Current Undergraduate Status</h2>
+      <div class="form-group">
+        <label for="is_undergraduate">Are you a current undergraduate?</label>
+        <select id="is_undergraduate" name="is_undergraduate" required>
+          <option value="">Please select</option>
+          <option value="true">Yes</option>
+          <option value="false">No</option>
+        </select>
+      </div>
+      <div class="form-group hidden" id="year-group">
+        <label for="current_year">Please select your current year</label>
+        <select id="current_year" name="current_year">
+          <option value="">Please select</option>
+          <option value="2025">2025</option>
+          <option value="2026">2026</option>
+          <option value="2027">2027</option>
+          <option value="2028">2028</option>
+        </select>
+      </div>
+      <div class="form-group hidden" id="major-group">
+        <label for="major">Please enter your major *</label>
+        <input type="text" id="major" name="major" placeholder="Your major" required>
+      </div>
+    </div>
+
+    <!-- Slide 2: Student List Access -->
+    <div class="slide hidden" data-slide="2">
+      <h2>Access to Student List</h2>
+      <div class="form-group">
+        <label for="can_access_student_list">Can you access or curate a list of 500-1000 students at your university?</label>
+        <p class="help-text">This means being able to efficiently and legally scrape sites like yalies.io, maizepages.umich.edu, stanfordwho.stanford.edu or by means of other creative routes.</p>
+        <select id="can_access_student_list" name="can_access_student_list" required>
+          <option value="">Please select</option>
+          <option value="true">Yes</option>
+          <option value="false">No</option>
+        </select>
+      </div>
+      <div class="form-group hidden" id="student-list-confidence-group">
+        <label for="student_list_confidence">Rate your ability to scrape your school's emails regularly (1-10)</label>
+        <input type="range" id="student_list_confidence" name="student_list_confidence" min="1" max="10" value="5">
+        <span class="range-value">5</span>
+      </div>
+    </div>
+
+    <!-- Slide 3: Admissions Contact -->
+    <div class="slide hidden" data-slide="3">
+      <h2>Access to Admissions Decision Maker Contacts</h2>
+      <div class="form-group">
+        <label for="has_admissions_contact">Do you have access to warm contact info of a key admissions decision maker?</label>
+        <p class="help-text">For example, can you reach out to your former principal or the counselor who guided you into your university?</p>
+        <select id="has_admissions_contact" name="has_admissions_contact" required>
+          <option value="">Please select</option>
+          <option value="true">Yes</option>
+          <option value="false">No</option>
+        </select>
+      </div>
+      <div class="form-group hidden" id="admissions-confidence-group">
+        <label for="admissions_contact_confidence">How confident are you in getting a prompt warm response? (1-10)</label>
+        <input type="range" id="admissions_contact_confidence" name="admissions_contact_confidence" min="1" max="10" value="5">
+        <span class="range-value">5</span>
+      </div>
+    </div>
+
+    <!-- Slide 4: Response Speed -->
+    <div class="slide hidden" data-slide="4">
+      <h2>And how fast could you reach out?</h2>
+      <div class="form-group">
+        <label for="response_speed">Rate your outreach speed (1-10)</label>
+        <p class="help-text">10 being your old principal is your neighbor</p>
+        <input type="range" id="response_speed" name="response_speed" min="1" max="10" value="5">
+        <span class="range-value">5</span>
+      </div>
+    </div>
+
+    <!-- Slide 5: Loading -->
+    <div class="slide hidden" data-slide="5">
+      <div class="loading-screen">
+        <div class="spinner"></div>
+        <p>Processing your application...</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="navigation-buttons">
+    <button id="prev-button" class="nav-button hidden">Previous</button>
+    <button id="next-button" class="nav-button">Next</button>
+  </div>
+</div>
+
+<style>
+  .application-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  .slide {
+    margin-bottom: 2rem;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+
+  .help-text {
+    font-size: 0.875rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+  }
+
+  select, input[type="text"] {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+
+  .navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .nav-button {
+    padding: 0.5rem 1rem;
+    background: #000;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .nav-button:hover {
+    opacity: 0.9;
+  }
+
+  .loading-screen {
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #000;
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  input[type="range"] {
+    width: 100%;
+    margin: 0.5rem 0;
+  }
+
+  .range-value {
+    display: inline-block;
+    margin-left: 0.5rem;
+  }
+</style>
+
+<script>
+  let currentSlide = 1;
+  const totalSlides = 4;
+  let sectionStartTime = Date.now();
+  const userId = localStorage.getItem('bolt_user_id');
+  
+  const slides = document.querySelectorAll('.slide');
+  const prevButton = document.getElementById('prev-button');
+  const nextButton = document.getElementById('next-button');
+
+  // Show/hide year and major fields based on undergraduate status
+  const undergraduateSelect = document.getElementById('is_undergraduate');
+  const yearGroup = document.getElementById('year-group');
+  const majorGroup = document.getElementById('major-group');
+
+  undergraduateSelect?.addEventListener('change', (e) => {
+    const target = e.target as HTMLSelectElement;
+    const isUndergraduate = target.value === 'true';
+    yearGroup?.classList.toggle('hidden', !isUndergraduate);
+    majorGroup?.classList.toggle('hidden', !isUndergraduate);
+  });
+
+  // Show/hide confidence fields based on selections
+  const studentListSelect = document.getElementById('can_access_student_list');
+  const studentListConfidenceGroup = document.getElementById('student-list-confidence-group');
+
+  studentListSelect?.addEventListener('change', (e) => {
+    const target = e.target as HTMLSelectElement;
+    studentListConfidenceGroup?.classList.toggle('hidden', target.value !== 'true');
+  });
+
+  const admissionsContactSelect = document.getElementById('has_admissions_contact');
+  const admissionsConfidenceGroup = document.getElementById('admissions-confidence-group');
+
+  admissionsContactSelect?.addEventListener('change', (e) => {
+    const target = e.target as HTMLSelectElement;
+    admissionsConfidenceGroup?.classList.toggle('hidden', target.value !== 'true');
+  });
+
+  // Update range value displays
+  document.querySelectorAll('input[type="range"]').forEach(range => {
+    range.addEventListener('input', (e) => {
+      const target = e.target as HTMLInputElement;
+      const valueDisplay = target.nextElementSibling;
+      if (valueDisplay) {
+        valueDisplay.textContent = target.value;
+      }
+    });
+  });
+
+  async function logInteraction(action: string, data: any = {}) {
+    if (!userId) return;
+
+    try {
+      await fetch('/api/track-interaction', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user_id: userId,
+          timestamp: new Date().toISOString(),
+          action,
+          ...data
+        }),
+      });
+    } catch (error) {
+      console.error('Failed to log interaction:', error);
+    }
+  }
+
+  // Navigation functions
+  function showSlide(slideNumber: number) {
+    const timeSpent = Date.now() - sectionStartTime;
+    
+    // Log completion of previous section
+    if (currentSlide > 0) {
+      logInteraction('section_complete', {
+        section: `slide_${currentSlide}`,
+        time_spent: timeSpent,
+        completed: true
+      });
+    }
+
+    slides.forEach((slide, index) => {
+      slide.classList.toggle('hidden', index + 1 !== slideNumber);
+    });
+    
+    prevButton?.classList.toggle('hidden', slideNumber === 1);
+    if (nextButton) {
+      nextButton.textContent = slideNumber === totalSlides ? 'Submit' : 'Next';
+    }
+
+    sectionStartTime = Date.now();
+    logInteraction('section_start', {
+      section: `slide_${slideNumber}`
+    });
+  }
+
+  function validateCurrentSlide(): boolean {
+    const currentSlideElement = document.querySelector(`[data-slide="${currentSlide}"]`);
+    if (!currentSlideElement) return false;
+    
+    // Special validation for undergraduate fields
+    if (currentSlide === 1) {
+      const isUndergraduate = document.getElementById('is_undergraduate')?.value === 'true';
+      if (isUndergraduate) {
+        const major = document.getElementById('major') as HTMLInputElement;
+        const year = document.getElementById('current_year') as HTMLSelectElement;
+        
+        if (!major?.value.trim()) {
+          alert('Please enter your major');
+          return false;
+        }
+        
+        if (!year?.value) {
+          alert('Please select your graduation year');
+          return false;
+        }
+      }
+    }
+
+    const requiredFields = currentSlideElement.querySelectorAll('[required]');
+    return Array.from(requiredFields).every((field) => {
+      const input = field as HTMLInputElement | HTMLSelectElement;
+      return input.value.trim() !== '';
+    });
+  }
+
+  async function submitApplication() {
+    // Validate all required fields before submission
+    const isUndergraduate = document.getElementById('is_undergraduate')?.value === 'true';
+    if (isUndergraduate) {
+      const major = document.getElementById('major') as HTMLInputElement;
+      const year = document.getElementById('current_year') as HTMLSelectElement;
+      
+      if (!major?.value.trim() || !year?.value) {
+        alert('Please fill in all required undergraduate fields');
+        return;
+      }
+    }
+
+    const formData = {
+      is_undergraduate: document.getElementById('is_undergraduate')?.value === 'true',
+      current_year: document.getElementById('current_year')?.value ? parseInt(document.getElementById('current_year')?.value) : undefined,
+      major: document.getElementById('major')?.value || undefined,
+      can_access_student_list: document.getElementById('can_access_student_list')?.value === 'true',
+      student_list_confidence: document.getElementById('student_list_confidence')?.value ? parseInt(document.getElementById('student_list_confidence')?.value) : undefined,
+      has_admissions_contact: document.getElementById('has_admissions_contact')?.value === 'true',
+      admissions_contact_confidence: document.getElementById('admissions_contact_confidence')?.value ? parseInt(document.getElementById('admissions_contact_confidence')?.value) : undefined,
+      response_speed: parseInt(document.getElementById('response_speed')?.value || '0')
+    };
+
+    try {
+      const response = await fetch('/api/submit-application', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      let result;
+      const responseText = await response.text();
+      
+      try {
+        result = JSON.parse(responseText);
+      } catch (parseError) {
+        console.error('Failed to parse response:', responseText);
+        throw new Error('Invalid response from server');
+      }
+
+      if (!response.ok) {
+        throw new Error(result.error?.message || 'Failed to submit application');
+      }
+      
+      // Log form submission
+      logInteraction('form_submit', {
+        meets_requirements: result.meetsRequirements
+      });
+      
+      if (result.success) {
+        // Show loading screen for 5 seconds
+        showSlide(5);
+        const redirectUrl = result.meetsRequirements ? '/success' : '/reject';
+        setTimeout(() => {
+          window.location.href = redirectUrl;
+        }, 3000);
+      }
+    } catch (error) {
+      alert(error instanceof Error ? error.message : 'An unexpected error occurred');
+      console.error('Error submitting application:', error instanceof Error ? {
+        message: error.message,
+        stack: error.stack
+      } : error);
+    }
+  }
+
+  // Event listeners for navigation
+  prevButton?.addEventListener('click', () => {
+    if (currentSlide > 1) {
+      currentSlide--;
+      showSlide(currentSlide);
+    }
+  });
+
+  nextButton?.addEventListener('click', async () => {
+    if (!validateCurrentSlide()) {
+      alert('Please fill in all required fields before continuing.');
+      return;
+    }
+
+    if (currentSlide === totalSlides) {
+      await submitApplication();
+    } else {
+      currentSlide++;
+      showSlide(currentSlide);
+    }
+  });
+
+  // Log initial form view
+  if (userId) {
+    logInteraction('form_view');
+  }
+
+  // Initialize first slide
+  showSlide(1);
+</script>
